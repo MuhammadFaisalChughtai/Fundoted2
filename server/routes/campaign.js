@@ -51,6 +51,7 @@ router.post(
 );
 router.post("/upload-photo", upload.single("img"), (req, res) => {
   const url = req.protocol + "://" + req.get("host");
+  console.log("Hellow");
   console.log(req.file);
   var img = fs.readFileSync(req.file.path);
   var encode_img = img.toString("base64");

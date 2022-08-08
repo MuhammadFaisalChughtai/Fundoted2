@@ -151,11 +151,7 @@ td, th {
   flex: 3;
   width: 70%;
 }
-.campaign__card .container {
-  /* max-width: 1320px; */
-  /* width: 70%; */
-  /* margin: 0; */
-}
+
 .campaign__card a{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }

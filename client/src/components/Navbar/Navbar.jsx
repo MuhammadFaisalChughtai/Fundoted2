@@ -41,7 +41,7 @@ const Navbar = () => {
         <ToastContainer />
 
         <div className="nav-container">
-          {user?.role === "user" ? (
+          {user?.role === "admin" ? (
             <NavLink
               to="/"
               className="nav-logo"
@@ -49,7 +49,7 @@ const Navbar = () => {
                 dispatch(allComp());
               }}
             >
-              FUNDOTED
+              FUNDOTED ADMIN
               <i className="fas fa-code"></i>
             </NavLink>
           ) : (
@@ -61,7 +61,7 @@ const Navbar = () => {
                   dispatch(allComp());
                 }}
               >
-                FUNDOTED ADMIN
+                FUNDOTED
                 <i className="fas fa-code"></i>
               </NavLink>
             </>
