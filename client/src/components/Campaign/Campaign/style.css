@@ -96,6 +96,7 @@ button:hover{
 .compaign__middle img{
   object-fit: cover;
   width: 70%;
+  height: 450px;
   border-radius: 10px;
   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 
@@ -151,7 +152,11 @@ td, th {
   flex: 3;
   width: 70%;
 }
-
+.campaign__card .container {
+  /* max-width: 1320px; */
+  /* width: 70%; */
+  /* margin: 0; */
+}
 .campaign__card a{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -194,6 +199,10 @@ background-color: #F5F5F5;
  
   display: flex;
   
+}
+.Social-icons {
+  /* display: flex; */
+  margin-bottom: 10px;
 }
 .Social-icons button{
   width: 5vw  !important;

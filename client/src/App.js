@@ -27,7 +27,7 @@ const App = () => {
     }
   }, [dispatch]);
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
       <Routes>
         <Route
@@ -67,7 +67,7 @@ const App = () => {
         <Route exact path="/reset-password" element={<ResetPassword />} />
         <Route exact path="/contact" element={<Contact />} />
       </Routes>
-    </>
+    </BrowserRouter>
   );
 };
 export default App;
