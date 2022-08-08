@@ -2,19 +2,28 @@ import React, { useEffect, useState } from "react";
 import { allComp, reset } from "../../reducers/campaignSlice";
 import Campaign from "../Campaign/Campaign/Campaign";
 import { SpinnerCircular } from "spinners-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { allComp } from "../../reducers/campaignSlice";
 // import { allComp } from "../../reducers/campaignSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Hero from "./Hero";
 const Home = () => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(allComp());
   }, [dispatch]);
+
   const { compaign, isLoading, isSuccess } = useSelector(
     (state) => state.compaign
   );
+  const { isAuth } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (isSuccess && localStorage.user && isAuth) {
+      navigate("/");
+    }
+  }, [isSuccess, navigate, isAuth]);
   return (
     <>
       <Hero />

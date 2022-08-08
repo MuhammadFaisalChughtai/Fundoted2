@@ -16,24 +16,19 @@ const Navbar = () => {
     : "";
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state) => state.auth);
-  const { isLoading, isSuccess } = useSelector((state) => state.compaign);
+  const { isLoading, isSuccess, switchUser } = useSelector(
+    (state) => state.compaign
+  );
   useEffect(() => {
     dispatch(reset());
   }, [dispatch]);
-  useEffect(() => {
-    if (!isLoading && isSuccess) {
-      // window.location.reload();
-      // toast.success(`Switch to ${user.title}`);
-    }
-  }, [isAuth, user, isLoading, isSuccess, dispatch]);
-  // console.log(user);
-  const switchUser = () => {
+  useEffect(() => {}, [isAuth, user, isLoading, isSuccess, switchUser]);
+  const switchUser1 = () => {
     const data = {
       id: user.id,
     };
-    dispatch(allComp());
-
     dispatch(switchUsr(data));
+    dispatch(allComp());
   };
   return (
     <>
@@ -96,7 +91,7 @@ const Navbar = () => {
                 <li className="nav-item">
                   <button
                     // to="/discover"
-                    onClick={() => switchUser()}
+                    onClick={() => switchUser1()}
                     className=""
                   >
                     Switch

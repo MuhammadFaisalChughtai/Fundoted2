@@ -8,6 +8,7 @@ const initialState = {
   isLoading: false,
   message: "",
   imgUrl: "",
+  switchUser: false,
 };
 
 // Create Compaign
@@ -299,6 +300,7 @@ export const compaignSlice = createSlice({
       .addCase(switchUsr.pending, (state) => {
         state.isLoading = true;
         state.isSuccess = false;
+        state.switchUser = false;
       })
       .addCase(switchUsr.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -306,11 +308,13 @@ export const compaignSlice = createSlice({
         state.imgUrl = "";
         // state.compaign = action.payload;
         state.message = "";
+        state.switchUser = true;
       })
       .addCase(switchUsr.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+        state.switchUser = false;
       })
       .addCase(uploadPic.pending, (state) => {
         state.isLoading = true;
