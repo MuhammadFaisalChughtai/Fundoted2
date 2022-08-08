@@ -27,5 +27,7 @@ mongoose
 
 // app.use("/user", userRoute);
 // app.use("/campaign", campaignRoute);
+app.use("/uploads", express.static(process.cwd() + "/uploads"));
+
 app.use("/api/v4/auth", authRoute);
 app.use("/api/v4/campaign", require("./routes/campaign"));
