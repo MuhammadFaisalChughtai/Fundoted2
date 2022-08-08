@@ -61,14 +61,12 @@ const updateCompaign = async (data) => {
 const myCompaign = async (data) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
       "x-auth-token": JSON.parse(localStorage.getItem("user")).token,
     },
   };
 
   const response = await axios.post(API_URL + "my-campaign", data, config);
-  console.log(response.data);
-  return response.data.msg;
+  return response.data.campaign;
 };
 const switchUser = async (id) => {
   const config = {

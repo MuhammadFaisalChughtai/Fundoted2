@@ -13,7 +13,9 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(myComp(user.id));
   }, [dispatch, user.id]);
-  const { compaign, isLoading } = useSelector((state) => state.compaign);
+  const { compaign, isLoading, isSuccess } = useSelector(
+    (state) => state.compaign
+  );
   return (
     <div className="profile__container">
       {/* <div className="profile__card">
@@ -25,7 +27,10 @@ const Dashboard = () => {
         </div>
       </div> */}
       <div className="campaign__card">
-        {!isLoading && compaign ? (
+        {!isLoading &&
+        isSuccess &&
+        compaign !== undefined &&
+        compaign.length > 0 ? (
           compaign?.map((item) => (
             <Link
               to={`/view-compaign/${item?.title?.split(" ").join("-")}`}

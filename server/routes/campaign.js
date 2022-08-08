@@ -11,9 +11,8 @@ const path = require("path");
 const jwt = require("jsonwebtoken");
 
 const checkObjectId = require("../middleware/checkObjectId");
-// const AdminAuth = require("../middleware/AdminAuth");
-// const Admin = require("../models/Admin");
-// const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 
 // const checkObjectId = require("../../middlew`a`re/checkObjectId");
 router.post(
@@ -166,8 +165,8 @@ router.put("/update-post", [upload.single("image"), auth], async (req, res) => {
 router.post("/my-campaign", auth, async (req, res) => {
   try {
     const { id } = req.body;
-
-    const campaign = await Campaign.find({ user: id })
+    console.log(req.user.id);
+    const campaign = await Campaign.find({ user: req.user.id })
       .sort({ date: -1 })
       .populate("user", ["name", "email"]);
 
@@ -299,94 +298,48 @@ router.post("/range-campaign", async (req, res) => {
     });
   }
 });
-// router.put("/update-post", [upload.single("image"), auth], async (req, res) => {
-//   try {
-//     const user = await User.findById(req.user.id).select("-password");
-//     if (!user) {
-//       res.status(404).json("user not found");
-//     }
-//     const UpdateProperty = {
-//       name: user.name,
-//       user: req.user.id,
-//       pName: req.body.pName,
-//       cover: req.body.cover,
-//       location: req.body.location,
-//       city: req.body.city,
-//       price: req.body.price,
-//       type: req.body.type,
-//       latitude: req.body.latitude,
-//       longitude: req.body.longitude,
-//       category: req.body.category,
-//       priceRange: req.body.priceRange,
-//       specification: req.body.specification,
-//     };
-//     const id = req.body._id;
-//     console.log(id);
-//     let property = await Property.findByIdAndUpdate(id, UpdateProperty, {
-//       new: true,
-//     });
-//     res.json(property);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// });
 
-// router.post("/view-property", async (req, res) => {
-//   try {
-//     const pName = req.body.value;
-//     const property = await Property.findOne({ pName }).populate("user", [
-//       "name",
-//       "email",
-//     ]);
-//     res.json({ property });
-//   } catch (err) {
-//     res.status(500).json({
-//       error: {
-//         msg: "Server Error",
-//       },
-//     });
-//   }
-// });
-
-// router.post("/buy-property", async (req, res) => {
-//   let { amount, id, p_id } = req.body;
-//   try {
-//     const payment = await stripe.paymentIntents.create({
-//       amount,
-//       currency: "USD",
-//       description: "Rent Pay",
-//       payment_method: id,
-//       confirm: true,
-//     });
-//     if (payment) {
-//       const UpdateProperty = {
-//         pName: req.body.pName,
-//         cover: req.body.cover,
-//         location: req.body.location,
-//         city: req.body.city,
-//         price: req.body.price,
-//         type: req.body.type,
-//         latitude: req.body.latitude,
-//         longitude: req.body.longitude,
-//         category: req.body.category,
-//         priceRange: req.body.priceRange,
-//         specification: req.body.specification,
-//       };
-//       await Property.findByIdAndUpdate(p_id, UpdateProperty, {
-//         new: true,
-//       });
-//     }
-//     res.json({
-//       message: "Payment successful",
-//       success: true,
-//     });
-//   } catch (error) {
-//     console.log("Error", error);
-//     res.json({
-//       message: "Payment failed",
-//       success: false,
-//     });
-//   }
-// });
+router.post("/buy-property", async (req, res) => {
+  let { amount, id, p_id } = req.body;
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: "USD",
+      description: "Rent Pay",
+      payment_method: id,
+      confirm: true,
+    });
+    if (payment) {
+      const UpdateProperty = {
+        catogary: req.body.catogary,
+        title: req.body.title,
+        author: req.body.author,
+        discription: req.body.discription,
+        image: req.body.image,
+        goal: req.body.goal,
+        days: req.body.days,
+        pledged: req.body.pledged,
+        noOfBackers: req.body.noOfBackers,
+        expectedDonation: req.body.expectedDonation,
+        maximumDonation: req.body.maximumDonation,
+        city: req.body.city,
+        country: req.body.country,
+        expDate: req.body.expDate,
+      };
+      await Campaign.findByIdAndUpdate(p_id, UpdateProperty, {
+        new: true,
+      });
+    }
+    res.json({
+      message: "Payment successful",
+      success: true,
+    });
+  } catch (error) {
+    console.log("Error", error);
+    res.json({
+      message: "Payment failed",
+      success: false,
+    });
+  }
+});
 module.exports = router;
