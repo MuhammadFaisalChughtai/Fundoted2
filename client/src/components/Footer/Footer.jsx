@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
-import './footer.css'
+import "./footer.css";
 
 const Footer = (props) => {
   return (
     <footer
-      className={`footer-footer section-container ${props.rootClassName} `}
+      className={`footer-footer section-container footer__background ${props.rootClassName} `}
     >
       <div className="footer-max-width max-content-container">
         <div className="footer-bottom-container">
@@ -75,14 +75,14 @@ const Footer = (props) => {
                 © All rights reserved
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: ' ',
+                    __html: " ",
                   }}
                 />
               </span>
               <span>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: ' ',
+                    __html: " ",
                   }}
                 />
               </span>
@@ -96,18 +96,18 @@ const Footer = (props) => {
             </a>
             <span>
               <span>
-                {' '}
+                {" "}
                 Powered by
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: ' ',
+                    __html: " ",
                   }}
                 />
               </span>
               <span>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: ' ',
+                    __html: " ",
                   }}
                 />
               </span>
@@ -124,14 +124,14 @@ const Footer = (props) => {
                 . Image source:
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: ' ',
+                    __html: " ",
                   }}
                 />
               </span>
               <span>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: ' ',
+                    __html: " ",
                   }}
                 />
               </span>
@@ -148,17 +148,17 @@ const Footer = (props) => {
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
 Footer.defaultProps = {
-  rootClassName: '',
-  rootClassName1: '',
-}
+  rootClassName: "",
+  rootClassName1: "",
+};
 
 Footer.propTypes = {
   rootClassName: PropTypes.string,
   rootClassName1: PropTypes.string,
-}
+};
 
-export default Footer
+export default Footer;

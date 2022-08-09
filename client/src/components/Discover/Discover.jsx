@@ -7,9 +7,11 @@ import { uploadPic, createComp } from "../../reducers/campaignSlice";
 // import { createCampaign } from "../../actions/index.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 const Discover = ({ currentId, setCurrentId }) => {
   const classes = useStyle();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [campaign, setCampaign] = useState({
     userId: "",
     catogary: "",
@@ -19,8 +21,8 @@ const Discover = ({ currentId, setCurrentId }) => {
     goal: "",
     days: "",
     image: "",
-    expectedDonation: "",
-    maximumDonation: "",
+    expectedDonation: 0,
+    maximumDonation: 0,
     city: "",
     country: "",
     expDate: "",
@@ -72,8 +74,11 @@ const Discover = ({ currentId, setCurrentId }) => {
   useEffect(() => {
     if (isSuccess && imgUrl === "") {
       toast.success("Property Added");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     }
-  }, [isSuccess, imgUrl]);
+  }, [isSuccess, imgUrl, navigate]);
   return (
     <div className={classes.container}>
       <ToastContainer />
@@ -161,7 +166,7 @@ const Discover = ({ currentId, setCurrentId }) => {
                 setCampaign({ ...campaign, discription: e.target.value })
               }
             />
-            <TextField
+            {/* <TextField
               name="expectedDonation"
               variant="outlined"
               label="Expected Donation"
@@ -180,7 +185,7 @@ const Discover = ({ currentId, setCurrentId }) => {
               onChange={(e) =>
                 setCampaign({ ...campaign, maximumDonation: e.target.value })
               }
-            />
+            /> */}
             <TextField
               name="city"
               variant="outlined"

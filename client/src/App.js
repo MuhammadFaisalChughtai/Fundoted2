@@ -19,6 +19,7 @@ import UpdateCompaign from "./components/Campaign/Campaign/UpdateCompaign.js";
 import Dashboard from "./components/Dashboard/Dashboard.js";
 import AdminLoginRegister from "./components/Admin/AdminLoginRegister.jsx";
 import Search from "./components/Home/Search";
+import Payment from "./components/Stripe/Payment";
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -31,7 +32,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route
-          path="/*"
+          path="/"
           element={
             <PrivateRoute>
               <Home />
@@ -59,6 +60,7 @@ const App = () => {
           path="/view-compaign/:title"
           element={<CampaignDetail />}
         />
+        <Route exact path="/payment" element={<Payment />} />
         <Route exact path="/search" element={<Search />} />
         <Route exact path="/update-compaign" element={<UpdateCompaign />} />
         <Route exact path="/login" element={<LoginRegister />} />
@@ -67,6 +69,7 @@ const App = () => {
         <Route exact path="/reset-password" element={<ResetPassword />} />
         <Route exact path="/contact" element={<Contact />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import useStyle from "../Discover/discover";
 import { useParams, Link, useNavigate } from "react-router-dom";
@@ -19,10 +19,15 @@ import {
   RedditButton,
   PinterestButton,
 } from "react-social";
+import { TextField, Typography } from "@material-ui/core";
+import StripeBtn from "../Stripe/stripeBtn";
+import { SpinnerCircular } from "spinners-react";
+
 function CampaignDetail() {
   const classes = useStyle();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [amount, setAmount] = useState(10);
   let { title } = useParams();
   const user = JSON.parse(localStorage?.getItem("user")).data;
   title = title?.split("-")?.join(" ");
@@ -52,7 +57,7 @@ function CampaignDetail() {
       }
     }
   };
-  const { compaign, message, isSuccess, isError } = useSelector(
+  const { compaign, message, isSuccess, isError, isLoading } = useSelector(
     (state) => state.compaign
   );
   useEffect(() => {
@@ -67,7 +72,7 @@ function CampaignDetail() {
   return (
     <div className="compaign__container">
       <ToastContainer />
-      {compaign && (
+      {!isLoading && compaign ? (
         <div>
           <h1>{compaign?.title}</h1>
 
@@ -147,6 +152,10 @@ function CampaignDetail() {
                       <th> City</th>
                       <td> {compaign?.city}</td>
                     </tr>
+                    <tr>
+                      <th> Funding</th>
+                      <td> {compaign?.funding / 100} $</td>
+                    </tr>
                   </tbody>
                 </table>
                 {user.role === "user" ? (
@@ -206,6 +215,35 @@ function CampaignDetail() {
                     </div>
                   </>
                 )}
+                {user?.title === "invester" && (
+                  <div className="stripe___com">
+                    <input
+                      name="amount"
+                      type="number"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                    />
+                    <StripeBtn
+                      amount={amount}
+                      pid={compaign.id || compaign._id}
+                      catogary={compaign.catogary}
+                      title={compaign.title}
+                      author={compaign.author}
+                      discription={compaign.discription}
+                      image={compaign.image}
+                      goal={compaign.goal}
+                      days={compaign.days}
+                      pledged={compaign.pledged}
+                      noOfBackers={compaign.noOfBackers}
+                      expDate={compaign.expDate}
+                      expectedDonation={compaign.expectedDonation}
+                      maximumDonation={compaign.maximumDonation}
+                      city={compaign.city}
+                      country={compaign.country}
+                      funding={compaign.funding}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -216,6 +254,27 @@ function CampaignDetail() {
             </div>
           </div>
         </div>
+      ) : (
+        <h2
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+            height: "100vh",
+          }}
+        >
+          <SpinnerCircular />
+          {/* <span
+            style={{
+              margin: "auto 0",
+              color: "#313131b8",
+              fontSize: "25px",
+            }}
+          >
+            {" "}
+            Loading...
+          </span> */}
+        </h2>
       )}
     </div>
   );

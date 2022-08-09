@@ -12,8 +12,7 @@ const jwt = require("jsonwebtoken");
 
 const checkObjectId = require("../middleware/checkObjectId");
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
-
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // const checkObjectId = require("../../middlew`a`re/checkObjectId");
 router.post(
   "/create-campaign",
@@ -299,34 +298,36 @@ router.post("/range-campaign", async (req, res) => {
   }
 });
 
-router.post("/buy-property", async (req, res) => {
-  let { amount, id, p_id } = req.body;
+router.post("/fund-now", async (req, res) => {
   try {
-    const payment = await stripe.paymentIntents.create({
-      amount,
-      currency: "USD",
-      description: "Rent Pay",
-      payment_method: id,
-      confirm: true,
-    });
-    if (payment) {
+    const body = {
+      source: req.body.token.id,
+      amount: req.body.amount,
+      currency: "usd",
+    };
+    const { pid } = req.body;
+    console.log(body);
+    const result = stripe.charges.create(body);
+    const camp = await Campaign.findById(pid);
+    if (result) {
       const UpdateProperty = {
-        catogary: req.body.catogary,
-        title: req.body.title,
-        author: req.body.author,
-        discription: req.body.discription,
-        image: req.body.image,
-        goal: req.body.goal,
-        days: req.body.days,
-        pledged: req.body.pledged,
-        noOfBackers: req.body.noOfBackers,
-        expectedDonation: req.body.expectedDonation,
-        maximumDonation: req.body.maximumDonation,
-        city: req.body.city,
-        country: req.body.country,
-        expDate: req.body.expDate,
+        catogary: camp.catogary,
+        title: camp.title,
+        author: camp.author,
+        discription: camp.discription,
+        image: camp.image,
+        goal: camp.goal,
+        days: camp.days,
+        pledged: camp.pledged,
+        noOfBackers: camp.noOfBackers,
+        expectedDonation: camp.expectedDonation,
+        maximumDonation: camp.maximumDonation,
+        city: camp.city,
+        country: camp.country,
+        expDate: camp.expDate,
+        funding: camp.funding + req.body.amount,
       };
-      await Campaign.findByIdAndUpdate(p_id, UpdateProperty, {
+      await Campaign.findByIdAndUpdate(pid, UpdateProperty, {
         new: true,
       });
     }
@@ -334,12 +335,53 @@ router.post("/buy-property", async (req, res) => {
       message: "Payment successful",
       success: true,
     });
-  } catch (error) {
-    console.log("Error", error);
-    res.json({
-      message: "Payment failed",
-      success: false,
-    });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send(err);
   }
 });
+
+// router.post("/fund-now", async (req, res) => {
+//   let { amount, id, p_id } = req.body;
+//   try {
+//     const payment = await stripe.paymentIntents.create({
+//       amount,
+//       currency: "USD",
+//       description: "Rent Pay",
+//       payment_method: id,
+//       confirm: true,
+//     });
+//     if (payment) {
+//       const UpdateProperty = {
+//         catogary: req.body.catogary,
+//         title: req.body.title,
+//         author: req.body.author,
+//         discription: req.body.discription,
+//         image: req.body.image,
+//         goal: req.body.goal,
+//         days: req.body.days,
+//         pledged: req.body.pledged,
+//         noOfBackers: req.body.noOfBackers,
+//         expectedDonation: req.body.expectedDonation,
+//         maximumDonation: req.body.maximumDonation,
+//         city: req.body.city,
+//         country: req.body.country,
+//         expDate: req.body.expDate,
+//       };
+//       await Campaign.findByIdAndUpdate(p_id, UpdateProperty, {
+//         new: true,
+//       });
+//     }
+//     res.json({
+//       message: "Payment successful",
+//       success: true,
+//     });
+//   } catch (error) {
+//     console.log("Error", error);
+//     res.json({
+//       message: "Payment failed",
+//       success: false,
+//     });
+//   }
+// });
 module.exports = router;

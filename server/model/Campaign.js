@@ -21,6 +21,10 @@ const campaignSchema = mongoose.Schema({
   maximumDonation: String,
   city: String,
   country: String,
+  funding: {
+    type: Number,
+    default: 0,
+  },
   date: {
     type: Date,
     default: Date.now,

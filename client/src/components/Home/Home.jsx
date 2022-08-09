@@ -29,7 +29,11 @@ const Home = () => {
       <Hero />
       <div className="profile__container">
         <div className="campaign__card">
-          {!isLoading && compaign && isSuccess ? (
+          {!isLoading &&
+          compaign &&
+          isSuccess &&
+          compaign !== undefined &&
+          compaign.length > 0 ? (
             compaign?.map((item) => (
               <Link
                 to={`/view-compaign/${item?.title?.split(" ").join("-")}`}

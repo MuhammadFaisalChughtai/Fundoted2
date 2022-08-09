@@ -28,7 +28,7 @@ const Navbar = () => {
       id: user.id,
     };
     dispatch(switchUsr(data));
-    dispatch(allComp());
+    // dispatch(allComp());
   };
   return (
     <>
@@ -74,27 +74,29 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            {user?.role === "user" ? (
+            <li className="nav-item">
+              <NavLink
+                to="/discover"
+                onClick={() => dispatch(reset())}
+                className="nav-links"
+              >
+                Discover
+              </NavLink>
+            </li>
+            {/* {user?.role === "user" ? (
               <>
                 {" "}
                 {user?.title === "user" && (
-                  <li className="nav-item">
-                    <NavLink
-                      to="/discover"
-                      onClick={() => dispatch(reset())}
-                      className="nav-links"
-                    >
-                      Discover
-                    </NavLink>
-                  </li>
+                  
                 )}
                 <li className="nav-item">
                   <button
+                    style={{ textTransform: "capitalize" }}
                     // to="/discover"
                     onClick={() => switchUser1()}
                     className=""
                   >
-                    Switch
+                    {user?.title}
                   </button>
                 </li>
               </>
@@ -110,7 +112,7 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               </>
-            )}
+            )} */}
             <li className="nav-item">
               <NavLink to="/blog" className="nav-links">
                 Contact
