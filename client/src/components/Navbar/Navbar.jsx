@@ -116,13 +116,14 @@ const Navbar = () => {
                 Contact
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink to="/settings" className="nav-links">
-                Settings
-              </NavLink>
-            </li>
+
             {isAuth ? (
               <>
+                <li className="nav-item">
+                  <NavLink to="/settings" className="nav-links">
+                    Settings
+                  </NavLink>
+                </li>
                 <li className="nav-item">
                   <NavLink to="/dashboard" className="nav-links">
                     Dashboard
