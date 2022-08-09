@@ -25,6 +25,7 @@ const LoginRegister = () => {
   const navigate = useNavigate();
 
   const changeAuthMode = () => {
+    dispatch(reset());
     setErr("");
     setAuthMode(authMode === "signin" ? "signup" : "signin");
   };

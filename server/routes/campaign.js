@@ -341,47 +341,4 @@ router.post("/fund-now", async (req, res) => {
   }
 });
 
-// router.post("/fund-now", async (req, res) => {
-//   let { amount, id, p_id } = req.body;
-//   try {
-//     const payment = await stripe.paymentIntents.create({
-//       amount,
-//       currency: "USD",
-//       description: "Rent Pay",
-//       payment_method: id,
-//       confirm: true,
-//     });
-//     if (payment) {
-//       const UpdateProperty = {
-//         catogary: req.body.catogary,
-//         title: req.body.title,
-//         author: req.body.author,
-//         discription: req.body.discription,
-//         image: req.body.image,
-//         goal: req.body.goal,
-//         days: req.body.days,
-//         pledged: req.body.pledged,
-//         noOfBackers: req.body.noOfBackers,
-//         expectedDonation: req.body.expectedDonation,
-//         maximumDonation: req.body.maximumDonation,
-//         city: req.body.city,
-//         country: req.body.country,
-//         expDate: req.body.expDate,
-//       };
-//       await Campaign.findByIdAndUpdate(p_id, UpdateProperty, {
-//         new: true,
-//       });
-//     }
-//     res.json({
-//       message: "Payment successful",
-//       success: true,
-//     });
-//   } catch (error) {
-//     console.log("Error", error);
-//     res.json({
-//       message: "Payment failed",
-//       success: false,
-//     });
-//   }
-// });
 module.exports = router;

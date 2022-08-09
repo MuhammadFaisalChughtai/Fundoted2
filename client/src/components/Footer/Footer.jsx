@@ -9,11 +9,11 @@ const Footer = (props) => {
     <footer
       className={`footer-footer section-container footer__background ${props.rootClassName} `}
     >
-      <div className="footer-max-width max-content-container">
+      <div className="footer-max-width max-content-container footer__container">
         <div className="footer-bottom-container">
           <div className="footer-left-side">
             <img
-              alt="image"
+              alt="footer logo"
               src="https://play.teleporthq.io/static/svg/placeholders/no-image.svg"
               className="footer-image"
             />

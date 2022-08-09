@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 
 const User = require("../model/User");
+const Campaign = require("../model/Campaign");
 
 const register = async (req, res) => {
   const { fname, email, password, title, role } = req.body;
@@ -161,4 +162,115 @@ const loadUser = async (req, res) => {
   }
 };
 
-module.exports = { register, login, forgetPassword, loadUser, resetPassword };
+const forgetPasswordSettings = async (req, res) => {
+  const { email } = req.body;
+  try {
+    let user = await User.findOne({ email }).select("-password");
+    if (!user) {
+      return res.status(400).json({ error: { message: "Invalid Email" } });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+const resetPasswordSettings = async (req, res) => {
+  const { email, password } = req.body;
+  console.log(email, password);
+  try {
+    let user = await User.findOne({ email }).select("-password");
+
+    if (!user) {
+      return res.status(400).json({ error: { message: "Invalid User" } });
+    }
+    const resetPassword = new User({
+      _id: user._id,
+      fname: user.fname,
+      email: user.email,
+      title: user.title,
+      role: user.role,
+      password: password,
+    });
+    const salt = await bcrypt.genSalt(10);
+
+    resetPassword.password = await bcrypt.hash(password, salt);
+    await User.findByIdAndUpdate(user.id, resetPassword, {
+      new: true,
+    });
+    res.json({ message: "Password Updated Successfully" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+const resetEmailSettings = async (req, res) => {
+  const { email } = req.body;
+  try {
+    let user = await User.findById(req.user.id).select("-password");
+    if (!user) {
+      return res.status(400).json({ error: { message: "Invalid Email" } });
+    }
+    if (user.email !== email) {
+      return res.status(400).json({ error: { message: "Invalid Email" } });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+const resetEmailNow = async (req, res) => {
+  const { email } = req.body;
+  try {
+    let user = await User.findOne({ email }).select("-password");
+    if (user) {
+      return res.status(400).json({ error: { message: "Email Occupied" } });
+    } else {
+      user = await User.findById(req.user.id).select("-password");
+    }
+    console.log(user);
+    const resetEmail = new User({
+      _id: user.id,
+      fname: user.fname,
+      email: email,
+      title: user.title,
+      role: user.role,
+      password: user.password,
+    });
+    console.log(resetEmail);
+
+    await User.findByIdAndUpdate(req.user.id, resetEmail, {
+      new: true,
+    });
+    res.json({ message: "Password Updated Successfully" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+const deleteUser = async (req, res) => {
+  try {
+    // Remove user Campaign
+    await Campaign.deleteMany({ user: req.user.id });
+    // Remove user
+    await User.findOneAndRemove({ _id: req.user.id });
+
+    res.json({ msg: "User deleted" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+module.exports = {
+  register,
+  login,
+  forgetPassword,
+  loadUser,
+  resetPassword,
+  forgetPasswordSettings,
+  resetPasswordSettings,
+  resetEmailSettings,
+  resetEmailNow,
+  deleteUser,
+};

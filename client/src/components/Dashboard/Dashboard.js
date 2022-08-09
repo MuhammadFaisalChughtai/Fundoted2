@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Dashboard = () => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage?.getItem("user")).data;
+  const [msg, setMsg] = useState("Loading...");
 
   useEffect(() => {
     dispatch(myComp(user.id));
@@ -16,6 +17,11 @@ const Dashboard = () => {
   const { compaign, isLoading, isSuccess } = useSelector(
     (state) => state.compaign
   );
+  useEffect(() => {
+    setTimeout(() => {
+      setMsg("You have No Campaigns");
+    }, 2000);
+  }, []);
   return (
     <div className="profile__container">
       {/* <div className="profile__card">
@@ -52,26 +58,49 @@ const Dashboard = () => {
             </Link>
           ))
         ) : (
-          <h2
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignContent: "center",
-              height: "100vh",
-            }}
-          >
-            <SpinnerCircular />
-            <span
-              style={{
-                margin: "auto 0",
-                color: "#313131b8",
-                fontSize: "25px",
-              }}
-            >
-              {" "}
-              Loading...
-            </span>
-          </h2>
+          <>
+            {msg === "Loading..." ? (
+              <h2
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  height: "100vh",
+                }}
+              >
+                <SpinnerCircular />
+                <span
+                  style={{
+                    margin: "auto 0",
+                    color: "#313131b8",
+                    fontSize: "25px",
+                  }}
+                >
+                  {" "}
+                  {msg}
+                </span>
+              </h2>
+            ) : (
+              <h2
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  height: "100vh",
+                }}
+              >
+                <span
+                  style={{
+                    margin: "auto 0",
+                    color: "#313131b8",
+                    fontSize: "25px",
+                  }}
+                >
+                  {msg}
+                </span>
+              </h2>
+            )}
+          </>
         )}
       </div>
     </div>

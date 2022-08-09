@@ -187,7 +187,11 @@
 .footer-text29 {
     text-decoration: underline;
 }
-
+.footer__container{
+    width: 70%;
+    margin: auto;
+    color: aliceblue;
+}
 @media(max-width: 991px) {
     .footer-bottom-container {
         flex-direction: column-reverse;

@@ -33,8 +33,6 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar">
-        <ToastContainer />
-
         <div className="nav-container">
           {user?.role === "admin" ? (
             <NavLink
@@ -118,7 +116,11 @@ const Navbar = () => {
                 Contact
               </NavLink>
             </li>
-
+            <li className="nav-item">
+              <NavLink to="/settings" className="nav-links">
+                Settings
+              </NavLink>
+            </li>
             {isAuth ? (
               <>
                 <li className="nav-item">

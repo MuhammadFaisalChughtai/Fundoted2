@@ -20,6 +20,11 @@ import Dashboard from "./components/Dashboard/Dashboard.js";
 import AdminLoginRegister from "./components/Admin/AdminLoginRegister.jsx";
 import Search from "./components/Home/Search";
 import Payment from "./components/Stripe/Payment";
+import Setting from "./components/Setting.js";
+import ForgetPasswordSetting from "./components/Settings/ForgetPasswordSetting";
+import ResetPasswordSetting from "./components/Settings/ResetPasswordSetting.js";
+import ChangeEmail from "./components/Settings/ChangeEmail";
+import ResetEmail from "./components/Settings/ResetEmail.js";
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -60,6 +65,19 @@ const App = () => {
           path="/view-compaign/:title"
           element={<CampaignDetail />}
         />
+        <Route
+          exact
+          path="/forget-password-settings"
+          element={<ForgetPasswordSetting />}
+        />
+        <Route
+          exact
+          path="/reset-password-settings"
+          element={<ResetPasswordSetting />}
+        />
+        <Route exact path="/change-email" element={<ChangeEmail />} />
+        <Route exact path="/reset-email" element={<ResetEmail />} />
+
         <Route exact path="/payment" element={<Payment />} />
         <Route exact path="/search" element={<Search />} />
         <Route exact path="/update-compaign" element={<UpdateCompaign />} />
@@ -68,6 +86,7 @@ const App = () => {
         <Route exact path="/forget-password" element={<ForgetPassword />} />
         <Route exact path="/reset-password" element={<ResetPassword />} />
         <Route exact path="/contact" element={<Contact />} />
+        <Route exact path="/settings" element={<Setting />} />
       </Routes>
       <Footer />
     </BrowserRouter>
