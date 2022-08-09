@@ -362,7 +362,7 @@ background-color: #F5F5F5;
 }
 .settings__container{
   width: 50%;
-  margin: 20px auto;
+  margin: 100px  auto;
   /* height: 100vh; */
   display: flex;
   justify-content: center;
@@ -370,7 +370,8 @@ background-color: #F5F5F5;
   flex-direction: column;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   /* background-color: rgb(255, 255, 255); */
-  background-color: #F7F9FA;  /* border-radius: 10px; */
+  background-color: #F7F9FA;  
+  border-radius: 10px;
 }
 .settings__container a{
 color: #181716;
