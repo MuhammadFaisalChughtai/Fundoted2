@@ -1,8 +1,8 @@
 .footer-footer {
-    background-color: var(--dl-color-scheme-black);
+    /* background-color: var(--dl-color-scheme-black); */
 }
 .footer__background{
-    background-color: #1F5156;
+    background-color: #1f5156;
 }
 .footer-max-width {
     align-items: flex-start;
@@ -191,6 +191,7 @@
     width: 70%;
     margin: auto;
     color: aliceblue;
+    padding: 30px;
 }
 @media(max-width: 991px) {
     .footer-bottom-container {

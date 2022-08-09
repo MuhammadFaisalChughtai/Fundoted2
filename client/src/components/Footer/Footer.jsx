@@ -54,7 +54,7 @@ const Footer = (props) => {
               <span className="footer-link">Location</span>
               <span className="footer-text08 footer-link">Workshops</span>
             </div>
-            <div className="footer-container2">
+            {/* <div className="footer-container2">
               <span className="footer-text09">
                 <span>Contact</span>
                 <br></br>
@@ -65,7 +65,7 @@ const Footer = (props) => {
               <span className="footer-link">become a speaker</span>
               <span className="footer-link">partnerships</span>
               <span className="footer-text16 footer-link">sales</span>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="footer-copyright">

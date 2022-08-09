@@ -112,7 +112,7 @@ const Navbar = () => {
               </>
             )} */}
             <li className="nav-item">
-              <NavLink to="/blog" className="nav-links">
+              <NavLink to="/contact" className="nav-links">
                 Contact
               </NavLink>
             </li>
