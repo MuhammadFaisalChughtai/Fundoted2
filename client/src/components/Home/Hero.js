@@ -88,7 +88,7 @@ const Hero = () => {
                 </option>
                 <option name="type" value="Design & Tech">
                   Design & Tech
-                </option>
+              </option>
                 <option name="type" value="Food & Craft">
                   Food & Craft
                 </option>
