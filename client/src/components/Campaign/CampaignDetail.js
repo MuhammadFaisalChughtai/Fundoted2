@@ -187,6 +187,7 @@ function CampaignDetail() {
                   </tbody>
                 </table>
                 {user.role === "user" &&
+                  compaign?.user?._id === user?.id &&
                   compaign?.goal === compaign?.pledged / 100 && (
                     <div className="compaign__button">
                       <Button
