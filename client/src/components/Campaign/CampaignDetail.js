@@ -22,6 +22,7 @@ import {
 import { TextField, Typography } from "@material-ui/core";
 import StripeBtn from "../Stripe/stripeBtn";
 import { SpinnerCircular } from "spinners-react";
+import Campaign from "./Campaign/Campaign";
 
 function CampaignDetail() {
   const classes = useStyle();
@@ -68,7 +69,13 @@ function CampaignDetail() {
       }, 2000);
     }
   }, [isError, isSuccess, message, navigate]);
-
+  function getDifferenceInDays(date1, date2) {
+    const date11 = new Date(date1);
+    const date22 = new Date(date2);
+    const diffInMs = Math.abs(date22 - date11);
+    return diffInMs / (1000 * 60 * 60 * 24);
+  }
+  const fund = compaign && compaign.pledged / 100;
   return (
     <div className="compaign__container">
       <ToastContainer />
@@ -122,15 +129,36 @@ function CampaignDetail() {
                     </tr>
                     <tr>
                       <th> Goal</th>
-                      <td> {compaign?.goal}</td>
+                      <td> {compaign?.goal} $</td>
                     </tr>
                     <tr>
                       <th> pledged</th>
-                      <td> {compaign?.pledged}</td>
+                      <td> {compaign?.pledged / 100} $</td>
                     </tr>
                     <tr>
                       <th> Days</th>
-                      <td> {compaign?.days}</td>
+                      <td>
+                        {getDifferenceInDays(
+                          compaign?.date.split("T")[0],
+                          compaign?.expDate.split("T")[0]
+                        ) > 1 ? (
+                          <span>
+                            {getDifferenceInDays(
+                              compaign?.date.split("T")[0],
+                              compaign?.expDate.split("T")[0]
+                            )}{" "}
+                            left
+                          </span>
+                        ) : (
+                          <span style={{ color: "red" }}>
+                            {getDifferenceInDays(
+                              compaign?.date.split("T")[0],
+                              compaign?.expDate.split("T")[0]
+                            )}{" "}
+                            left
+                          </span>
+                        )}
+                      </td>
                     </tr>
                     <tr>
                       <th> No Of Backers</th>
@@ -152,12 +180,26 @@ function CampaignDetail() {
                       <th> City</th>
                       <td> {compaign?.city}</td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <th> Funding</th>
                       <td> {compaign?.funding / 100} $</td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
+                {user.role === "user" &&
+                  compaign?.goal === compaign?.pledged / 100 && (
+                    <div className="compaign__button">
+                      <Button
+                        className={classes.buttonSubmit}
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={() => deleteNow(compaign._id)}
+                      >
+                        Claim
+                      </Button>
+                    </div>
+                  )}
                 {user.role === "user" ? (
                   <>
                     {compaign?.user?._id === user?.id && (

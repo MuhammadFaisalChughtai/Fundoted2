@@ -283,11 +283,14 @@ router.post("/range-campaign", async (req, res) => {
   try {
     const { type, price } = req.body;
     catogary = req.body.type;
-    console.log(type, price);
-    const campaign = await Campaign.find({ catogary })
+    console.log(catogary);
+    const price1 = price.split(",")[0];
+    const price2 = price.split(",")[1];
+    let campaign = await Campaign.find({ catogary })
       .sort({ date: -1 })
       .populate("user", ["name", "email"]);
 
+    console.log(campaign);
     res.json({ campaign });
   } catch (err) {
     res.status(500).json({
@@ -318,8 +321,8 @@ router.post("/fund-now", async (req, res) => {
         image: camp.image,
         goal: camp.goal,
         days: camp.days,
-        pledged: camp.pledged,
-        noOfBackers: camp.noOfBackers,
+        pledged: camp.pledged + req.body.amount,
+        noOfBackers: camp.noOfBackers + 1,
         expectedDonation: camp.expectedDonation,
         maximumDonation: camp.maximumDonation,
         city: camp.city,

@@ -8,6 +8,9 @@ import { uploadPic, createComp } from "../../reducers/campaignSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import Select from "@material-ui/core/Select";
+// import MenuItem from "@mui/material/MenuItem";
+
 const Discover = ({ currentId, setCurrentId }) => {
   const classes = useStyle();
   const dispatch = useDispatch();
@@ -104,7 +107,7 @@ const Discover = ({ currentId, setCurrentId }) => {
             <Typography variant="h3" color="primary" className={classes.title}>
               Create Your Campaign
             </Typography>
-            <TextField
+            {/* <TextField
               name="title"
               variant="outlined"
               label="Catogary"
@@ -113,7 +116,63 @@ const Discover = ({ currentId, setCurrentId }) => {
               onChange={(e) =>
                 setCampaign({ ...campaign, catogary: e.target.value })
               }
-            />
+            /> */}
+            {/* <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={campaign.catogary}
+              label="Age"
+              onChange={(e) =>
+                setCampaign({ ...campaign, catogary: e.target.value })
+              }
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select> */}
+            <Select
+              native
+              fullWidth
+              value={campaign.catogary}
+              className="drop__down"
+              style={{
+                margin: "10px",
+                background: "transparent",
+                borderBottom: "none",
+              }}
+              onChange={(e) =>
+                setCampaign({ ...campaign, catogary: e.target.value })
+              }
+              inputProps={{
+                name: "type",
+                id: "filled-age-native-simple",
+              }}
+            >
+              <option aria-label="Campaign Type" value="Campaign Type">
+                Select Category
+              </option>
+              <option name="type" value="Arts">
+                Arts
+              </option>
+              <option name="type" value="Design & Tech">
+                Design & Tech
+              </option>
+              <option name="type" value="Food & Craft">
+                Food & Craft
+              </option>
+              <option name="type" value="Film">
+                Film
+              </option>
+              <option name="type" value="Games">
+                Games
+              </option>
+              <option name="type" value="Music">
+                Music
+              </option>
+              <option name="type" value="Publishing">
+                Publishing
+              </option>
+            </Select>
             <TextField
               name="author"
               variant="outlined"
@@ -137,6 +196,7 @@ const Discover = ({ currentId, setCurrentId }) => {
             <TextField
               name="price"
               variant="outlined"
+              type="number"
               label="Goal required in Pkr"
               fullWidth
               value={campaign.goal}
@@ -149,6 +209,8 @@ const Discover = ({ currentId, setCurrentId }) => {
               variant="outlined"
               label="No of days "
               fullWidth
+              // label="Number"
+              type="number"
               value={campaign.days}
               onChange={(e) =>
                 setCampaign({ ...campaign, days: e.target.value })

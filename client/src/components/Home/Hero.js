@@ -81,26 +81,32 @@ const Hero = () => {
                 }}
               >
                 <option aria-label="Campaign Type" value="Campaign Type">
-                  Select Campaign Type
+                  Select Category
                 </option>
-                <option name="type" value="Family House">
-                  Family House
+                <option name="type" value="Arts">
+                  Arts
                 </option>
-                <option name="type" value="House & Villa">
-                  House & Villa
+                <option name="type" value="Design & Tech">
+                  Design & Tech
                 </option>
-                <option name="type" value="Apartment">
-                  Apartment
+                <option name="type" value="Food & Craft">
+                  Food & Craft
                 </option>
-                <option name="type" value="Office & Studio">
-                  Office & Studio
+                <option name="type" value="Film">
+                  Film
                 </option>
-                <option name="type" value="Villa & Condo">
-                  Villa & Condo
+                <option name="type" value="Games">
+                  Games
+                </option>
+                <option name="type" value="Music">
+                  Music
+                </option>
+                <option name="type" value="Publishing">
+                  Publishing
                 </option>
               </Select>
             </div>
-            <div className="search__dropDown">
+            {/* <div className="search__dropDown">
               <Select
                 native
                 value={type}
@@ -129,7 +135,7 @@ const Hero = () => {
                   Villa & Condo
                 </option>
               </Select>
-            </div>
+            </div> */}
             <div className="">
               <div className={classes.root}>
                 <span>Campaign Budget</span>

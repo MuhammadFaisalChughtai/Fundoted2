@@ -339,6 +339,7 @@ background-color: #F5F5F5;
   border-radius: 5px;
   margin: 2px;
   height: 30px;
+  width: 100%;
 
 }
 .stripe___com button{
@@ -434,6 +435,26 @@ color: #181716;
   background-color: #e60023a7;
   width: 10vw;
   height: 5vh;
+}
+.drop__down{
+  margin: 10px;
+  border: 1px solid rgb(183 181 181 / 73%);
+  background: transparent;
+  border-bottom: none;
+  height: 58px;
+  border-radius: 5px;
+  padding: 10px;
+  color: rgba(0, 0, 0, 0.87);
+    cursor: text;
+    display: inline-flex;
+    position: relative;
+    font-size: 1rem;
+    box-sizing: border-box;
+    align-items: center;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.1876em;
+    letter-spacing: 0.00938em;
 }
 @media (max-width: 808px)  {
   .compaign__middle{
