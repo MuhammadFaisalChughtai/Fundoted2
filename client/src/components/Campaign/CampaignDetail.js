@@ -75,7 +75,6 @@ function CampaignDetail() {
     const diffInMs = Math.abs(date22 - date11);
     return diffInMs / (1000 * 60 * 60 * 24);
   }
-  const fund = compaign && compaign.pledged / 100;
   return (
     <div className="compaign__container">
       <ToastContainer />
@@ -195,7 +194,6 @@ function CampaignDetail() {
                         variant="contained"
                         color="primary"
                         size="small"
-                        onClick={() => deleteNow(compaign._id)}
                       >
                         Claim
                       </Button>
