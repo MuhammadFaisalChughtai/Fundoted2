@@ -21,7 +21,7 @@ const stripeBtn = ({
   funding,
 }) => {
   const publishableKey =
-    "pk_test_51LQyMDKrhyc13hMnHkZoiJaXAyIj50XvYJVbI1z6Tg6vWKy5RbOj5E3hA5yjpbeiCneuOOW1CS85HT43a81HRC2d002LSxbi9n";
+    "pk_test_51LVgo2LgRYWGY1gMrNRI668Xnl3C627YTtBjixfnoqQZYUtzwwZPnqMTekj3DZpzwKjkOTOAPhxA2o1BXWBXCLep00sz0ryWNQ";
   amount = amount && amount * 10;
   amount = amount && amount * 10;
   const onToken = (token) => {

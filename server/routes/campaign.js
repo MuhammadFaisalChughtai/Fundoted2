@@ -281,15 +281,18 @@ router.put("/update-camp-admin", upload.single("image"), async (req, res) => {
 });
 router.post("/range-campaign", async (req, res) => {
   try {
-    const { type, price } = req.body;
+    const { price } = req.body;
     catogary = req.body.type;
     console.log(catogary);
     const price1 = price.split(",")[0];
     const price2 = price.split(",")[1];
+    console.log(price1, price2);
     let campaign = await Campaign.find({ catogary })
       .sort({ date: -1 })
       .populate("user", ["name", "email"]);
-
+    campaign = campaign.filter(
+      (item) => item.goal >= price1 && item.goal <= price2
+    );
     console.log(campaign);
     res.json({ campaign });
   } catch (err) {

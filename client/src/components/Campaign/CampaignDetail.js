@@ -138,24 +138,18 @@ function CampaignDetail() {
                       <th> Days</th>
                       <td>
                         {getDifferenceInDays(
-                          compaign?.date.split("T")[0],
-                          compaign?.expDate.split("T")[0]
+                          compaign?.date?.split("T")[0],
+                          compaign?.expDate?.split("T")[0]
                         ) > 1 ? (
                           <span>
                             {getDifferenceInDays(
-                              compaign?.date.split("T")[0],
-                              compaign?.expDate.split("T")[0]
+                              compaign?.date?.split("T")[0],
+                              compaign?.expDate?.split("T")[0]
                             )}{" "}
                             left
                           </span>
                         ) : (
-                          <span style={{ color: "red" }}>
-                            {getDifferenceInDays(
-                              compaign?.date.split("T")[0],
-                              compaign?.expDate.split("T")[0]
-                            )}{" "}
-                            left
-                          </span>
+                          <span style={{ color: "red" }}>0 left</span>
                         )}
                       </td>
                     </tr>
@@ -185,9 +179,9 @@ function CampaignDetail() {
                     </tr> */}
                   </tbody>
                 </table>
-                {user.role === "user" &&
+                {user?.role === "user" &&
                   compaign?.user?._id === user?.id &&
-                  compaign?.goal === compaign?.pledged / 100 && (
+                  compaign?.pledged / 100 >= compaign?.goal && (
                     <div className="compaign__button">
                       <Button
                         className={classes.buttonSubmit}
@@ -256,35 +250,39 @@ function CampaignDetail() {
                     </div>
                   </>
                 )}
-                {user?.title === "invester" && (
-                  <div className="stripe___com">
-                    <input
-                      name="amount"
-                      type="number"
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
-                    />
-                    <StripeBtn
-                      amount={amount}
-                      pid={compaign.id || compaign._id}
-                      catogary={compaign.catogary}
-                      title={compaign.title}
-                      author={compaign.author}
-                      discription={compaign.discription}
-                      image={compaign.image}
-                      goal={compaign.goal}
-                      days={compaign.days}
-                      pledged={compaign.pledged}
-                      noOfBackers={compaign.noOfBackers}
-                      expDate={compaign.expDate}
-                      expectedDonation={compaign.expectedDonation}
-                      maximumDonation={compaign.maximumDonation}
-                      city={compaign.city}
-                      country={compaign.country}
-                      funding={compaign.funding}
-                    />
-                  </div>
-                )}
+                {user?.title === "invester" &&
+                  getDifferenceInDays(
+                    compaign?.date?.split("T")[0],
+                    compaign?.expDate?.split("T")[0]
+                  ) > 1 && (
+                    <div className="stripe___com">
+                      <input
+                        name="amount"
+                        type="number"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                      />
+                      <StripeBtn
+                        amount={amount}
+                        pid={compaign.id || compaign._id}
+                        catogary={compaign.catogary}
+                        title={compaign.title}
+                        author={compaign.author}
+                        discription={compaign.discription}
+                        image={compaign.image}
+                        goal={compaign.goal}
+                        days={compaign.days}
+                        pledged={compaign.pledged}
+                        noOfBackers={compaign.noOfBackers}
+                        expDate={compaign.expDate}
+                        expectedDonation={compaign.expectedDonation}
+                        maximumDonation={compaign.maximumDonation}
+                        city={compaign.city}
+                        country={compaign.country}
+                        funding={compaign.funding}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
           </div>

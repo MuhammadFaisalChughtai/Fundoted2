@@ -6,7 +6,10 @@ import Campaign from "../Campaign/Campaign/Campaign";
 
 function Search() {
   const { search } = useLocation();
-  const [values, setValues] = useState([]);
+  const [compaign, setValues] = useState([]);
+  const [msg, setMsg] = useState("Loading...");
+  const [isLoading, setIsLoading] = useState(false);
+
   //   all-properties
   useEffect(() => {
     async function getCompaign() {
@@ -28,11 +31,17 @@ function Search() {
         );
         console.log(results.data);
         setValues(results.data.campaign);
+        results.data.campaign.length < 1 && setIsLoading(true);
       } catch (err) {
         console.log(err);
       }
     }
     getCompaign();
+  }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setMsg("You have No Campaigns");
+    }, 2000);
   }, []);
   function capitalize(str) {
     let results = [];
@@ -44,10 +53,18 @@ function Search() {
     return results.join(" ");
   }
   return (
-    <>
-      <div className="profile__container">
-        <div className="campaign__card">
-          {values?.map((item) => (
+    <div className="profile__container">
+      {/* <div className="profile__card">
+      <div className="profile__img">
+        <img
+          src="https://redpaladin.com/wp-content/uploads/2021/06/dummy-avatar.png"
+          alt=""
+        />
+      </div>
+    </div> */}
+      <div className="campaign__card">
+        {!isLoading && compaign !== undefined && compaign.length > 0 ? (
+          compaign?.map((item) => (
             <Link
               to={`/view-compaign/${item?.title?.split(" ").join("-")}`}
               key={item._id}
@@ -65,45 +82,54 @@ function Search() {
                 date={item.date}
               />
             </Link>
-          ))}
-          {/* <div className="profile__card">
-            <div className="__sidebar">
-              <div style={{ position: "sticky", top: "13%" }}>
-                <div className="home__blockHeading tech__trendingColor">
-                  <h2>Recommend campaigns</h2>
-                </div>
-
-                <div>
-                  <div className="home__trendingBlock">
-                    <img
-                      width="180"
-                      height="70"
-                      className="home__trendingBlockImage"
-                      style={{ height: "73px" }}
-                      src="https://bepakistani.pk/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fbepakistani-dbc7b.appspot.com%2Fo%2Fsim-information-with-number--easiest-way-to-check-sim-owner-details.webp%3Falt%3Dmedia%26token%3D61092134-5bd4-4ee6-a9aa-fa06a51603c7&w=1200&q=75"
-                      alt=""
-                    />
-                    <div>
-                      <h3
-                        style={{ textTransform: "capitalize" }}
-                        className="tech__postTitle tech__labelColor"
-                      >
-                        Fun Unlimited
-                      </h3>
-
-                      <h3 className="tech__postTitle">
-                        Sim Information With Number - Easiest Way To Check Sim
-                        Owner Details
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-        </div>
+          ))
+        ) : (
+          <>
+            {msg === "Loading..." ? (
+              <h2
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  height: "100vh",
+                }}
+              >
+                <SpinnerCircular />
+                <span
+                  style={{
+                    margin: "auto 0",
+                    color: "#313131b8",
+                    fontSize: "25px",
+                  }}
+                >
+                  {" "}
+                  {msg}
+                </span>
+              </h2>
+            ) : (
+              <h2
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  height: "100vh",
+                }}
+              >
+                <span
+                  style={{
+                    margin: "auto 0",
+                    color: "#313131b8",
+                    fontSize: "25px",
+                  }}
+                >
+                  {msg}
+                </span>
+              </h2>
+            )}
+          </>
+        )}
       </div>
-    </>
+    </div>
   );
 }
 

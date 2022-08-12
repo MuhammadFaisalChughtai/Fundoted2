@@ -88,7 +88,7 @@ const Hero = () => {
                 </option>
                 <option name="type" value="Design & Tech">
                   Design & Tech
-              </option>
+                </option>
                 <option name="type" value="Food & Craft">
                   Food & Craft
                 </option>
@@ -143,7 +143,7 @@ const Hero = () => {
                 <Slider
                   value={value}
                   onChange={handleChange}
-                  min={10000}
+                  min={20000}
                   step={1000}
                   max={200000}
                   valueLabelDisplay="auto"
